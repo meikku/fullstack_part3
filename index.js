@@ -23,12 +23,20 @@ let persons = [
         "id": 4
       }
 ]
+
+const date = new Date().toUTCString()
+
 app.get('/', (request, response)=> {
     response.send('<h1>Hello world!</h1>')
 })
 
 app.get('/api/persons', (request, response) => {
     response.json(persons)
+})
+
+app.get('/api/info', (request, response) => {
+  response.send(`Phonebook has info for ${persons.length} people </br>  ${date}`)
+ 
 })
 
 
