@@ -1,0 +1,26 @@
+{
+  "name": "fullstack_part3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meikku/fullstack_part3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meikku/fullstack_part3/issues"
+  },
+  "homepage": "https://github.com/meikku/fullstack_part3#readme",
+  "devDependencies": {
+    "json-server": "^0.16.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
+  }
+}
