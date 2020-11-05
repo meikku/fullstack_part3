@@ -62,16 +62,30 @@ const generateId = () => {
   const min = Number(99999)
   const max = Number(99999999)
   
-  return Math.random()* (max -min) + min
+  return Math.round(Math.random()* (max -min) + min)
 }
 app.post('/api/persons', (request, response) => {
   const body = request.body
-
+  
   if (!body.name) {
     return response.status(400).json({
-      error: 'content missing'
+      error: 'name missing'
     })
   }
+  if (!body.number) {
+    return response.status(400).json({
+      error: 'number missing'
+    })
+  }
+  // const existing = persons.find(p => p.name === name)
+
+  // if (body.name === existing) {
+  //   return response.status(400).json({
+  //     error: 'name must be unique' 
+  //   })
+
+  // }
+
   
   const person = {
     name: body.name,
