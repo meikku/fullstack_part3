@@ -2,6 +2,6 @@ POST https://meikku-fs3.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-    "name": "Tuula",
+    "name": "Kaaleppi",
     "number": "062836429"
 }

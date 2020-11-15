@@ -21,9 +21,10 @@ const personSchema = new mongoose.Schema({
     name: String,
     number: String,
     date: Date,
-})
+  })
 
-const Person = mongoose.model('Person', personSchema)
+const Person = mongoose.model('Person', personSchema) 
+
 
 if (process.argv.length >= 4)
 {
