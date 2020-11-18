@@ -32,15 +32,6 @@ app.get('/api/persons/:id', (request, response, next) => {
   .catch(error => next(error))
 })
 
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-  date: Date,
-})
-
-
-const date = new Date().toUTCString()
-
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
   .then(result => {
@@ -67,14 +58,12 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({
       error: 'name must be unique' 
     })
-
   }
 
   
   const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateId(),
   })
 person.save().then(savedPerson => {
   response.json(savedPerson)
