@@ -13,6 +13,11 @@ app.use(express.json())
 
 let persons = []
 
+app.get('/api/info', (request, response) => {
+  response.send(`Phonebook has info for ${persons.length} people`)
+})
+
+
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons.map(person => person.toJSON()))
