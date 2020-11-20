@@ -11,6 +11,7 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 
+let persons = []
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
