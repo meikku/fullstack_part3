@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const morgan = require ('morgan')
 require('dotenv').config()
 const Person = require('./models/person')
 
@@ -7,9 +8,11 @@ const mongoose = require('mongoose')
 
 const cors = require('cors')
 
-app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
+app.use(morgan('tiny'))
+app.use(cors())
+
 
 let persons = []
 
@@ -82,6 +85,20 @@ app.put('/api/persons/:id', (request, response, next) => {
     number: body.number,
   }
   Person.findByIdAndUpdate(request.params.id, person, {new: true})
+  .then(updatedPerson => {
+    response.json(updatedPerson)
+  })
+  .catch(error => next(error))
+})
+
+app.put('api/persons/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+  Person.findByIdAndUpdate(request.params.id, person, { new: true} )
   .then(updatedPerson => {
     response.json(updatedPerson)
   })
