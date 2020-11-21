@@ -16,8 +16,10 @@ app.use(cors())
 
 let persons = []
 
-app.get('/api/info', (request, response) => {
-  response.send(`Phonebook has info for ${persons.length} people`)
+app.get('/info', (request, response) => {
+   Person.countDocuments({}).then(result => {
+  response.send(`<h3>Phonebook has info for ${result} people</h3><p> </br>${new Date()}</p>`)
+  })
 })
 
 
