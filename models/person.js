@@ -16,6 +16,7 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindA
 const personSchema = new mongoose.Schema({
     name: {
         type: String,
+        unique: true,
         minlength: 3,
     }, 
     number: {
