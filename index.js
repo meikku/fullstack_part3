@@ -4,7 +4,7 @@ const morgan = require ('morgan')
 require('dotenv').config()
 const Person = require('./models/person')
 
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 
 const cors = require('cors')
 
@@ -17,8 +17,8 @@ app.use(cors())
 let persons = []
 
 app.get('/info', (request, response) => {
-   Person.countDocuments({}).then(result => {
-  response.send(`<h3>Phonebook has info for ${result} people</h3><p> </br>${new Date()}</p>`)
+  Person.countDocuments({}).then(result => {
+    response.send(`<h3>Phonebook has info for ${result} people</h3><p> </br>${new Date()}</p>`)
   })
 })
 
@@ -43,7 +43,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then( () => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -51,10 +51,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
-  const existing = persons.find(p => p.name === newName)
-  if (existing) {
-    const ok = window.confirm(`${existing.name} already in phonebook, replace the old number with new one?`)
-  }
+
   if (!body.name) {
     return response.status(400).json({
       error: 'name missing'
@@ -77,12 +74,12 @@ app.post('/api/persons', (request, response, next) => {
     number: body.number,
   })
   person
-  .save()
-  .then(savedPerson => savedPerson.toJSON())
-  .then(savedAndFormattedPerson => {
-    response.json(savedAndFormattedPerson)
-  })
-  .catch(error => next(error))
+    .save()
+    .then(savedPerson => savedPerson.toJSON())
+    .then(savedAndFormattedPerson => {
+      response.json(savedAndFormattedPerson)
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -92,11 +89,11 @@ app.put('/api/persons/:id', (request, response, next) => {
     name: body.name,
     number: body.number,
   }
-  Person.findByIdAndUpdate(request.params.id, person, {new: true, runValidators: true})
-  .then(updatedPerson => {
-    response.json(updatedPerson)
-  })
-  .catch(error => next(error))
+  Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson)
+    })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
@@ -114,7 +111,7 @@ const errorHandler = (error, request, response, next) => {
       error: 'malformatted id'
     })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message})
+    return response.status(400).json({ error: error.message })
   }
   next(error)
 }
